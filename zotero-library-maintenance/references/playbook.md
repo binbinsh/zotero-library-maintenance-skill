@@ -3,10 +3,38 @@
 ## Scope
 
 This playbook is for local Zotero library maintenance using:
-- local read API: `http://localhost:23119/api/users/0/...`
+- local read API discovered from the running Zotero instance
 - in-app write path: Zotero `Run JavaScript`
 
 The local API is fast and complete enough for inventory, but writes are not supported. Do not plan around `PATCH` or local API mutation.
+
+## Endpoint Discovery
+
+Do not assume the port is fixed, even though `23119` is the common default.
+
+Use one of these discovery paths:
+
+1. Preferred, from inside Zotero `Run JavaScript`:
+   - `Zotero.Prefs.get('connector.url')`
+   - this typically returns something like `http://127.0.0.1:23119/`
+2. Outside Zotero, probe candidate bases and accept the first one whose `/api/` root responds with headers like:
+   - `X-Zotero-Version`
+   - `Zotero-API-Version`
+3. Treat `localhost:23119` or `127.0.0.1:23119` as defaults, not guarantees.
+
+## User Library Discovery
+
+For the local API, prefer `users/0`.
+
+Why:
+- Zotero's local API explicitly accepts `userID 0` as the alias for the logged-in local user
+- the actual numeric user id may differ by machine/account
+
+If you need the real numeric user id:
+- inspect the returned item payload under `library.id`
+- or inspect the `alternate` links in API responses
+
+Use the real numeric id only when required by the task. Otherwise `users/0` is the least fragile choice.
 
 ## Phase 1: Audit
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import os
 import ssl
@@ -6,7 +7,9 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-BASE = "http://localhost:23119/api/users/0/items"
+
+def build_base(base_url, user_id):
+    return f"{base_url.rstrip('/')}/api/users/{user_id}/items"
 
 
 def fetch_all(base_url):
@@ -33,7 +36,12 @@ def enclosure_path(obj):
 
 
 def main():
-    items = fetch_all(BASE)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--base-url", default=os.environ.get("ZOTERO_BASE_URL", "http://localhost:23119"))
+    parser.add_argument("--user-id", default=os.environ.get("ZOTERO_USER_ID", "0"))
+    args = parser.parse_args()
+
+    items = fetch_all(build_base(args.base_url, args.user_id))
     ssl_ctx = ssl.create_default_context()
     headers = {"User-Agent": "Mozilla/5.0"}
 

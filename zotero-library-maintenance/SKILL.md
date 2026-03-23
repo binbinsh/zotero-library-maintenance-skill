@@ -1,16 +1,17 @@
 ---
 name: zotero-library-maintenance
-description: Use when auditing, organizing, de-duplicating, repairing, or metadata-cleaning a local Zotero library via the Zotero local API on localhost:23119 and Zotero's internal Run JavaScript tool. Covers unfiled top-level items, collection assignment, standalone attachment re-parenting, conservative year filling, and broken PDF diagnosis/repair.
+description: Use when auditing, organizing, de-duplicating, repairing, or metadata-cleaning a local Zotero library via the Zotero local API and Zotero's internal Run JavaScript tool. Covers endpoint discovery, unfiled top-level items, collection assignment, standalone attachment re-parenting, conservative year filling, and broken PDF diagnosis/repair.
 ---
 
 # Zotero Library Maintenance
 
 ## Overview
 
-Use this skill for high-leverage maintenance on a local Zotero library when the user wants structural cleanup, metadata cleanup, or attachment repair. It is optimized for the Zotero local API at `http://localhost:23119/api/` plus in-app mutation through Zotero's `Run JavaScript` window.
+Use this skill for high-leverage maintenance on a local Zotero library when the user wants structural cleanup, metadata cleanup, or attachment repair. It is optimized for the Zotero local API plus in-app mutation through Zotero's `Run JavaScript` window.
 
 This skill assumes:
-- Reads come from the local API under `users/0`
+- Reads come from the local API after discovery of the local base URL
+- Reads should prefer `users/0` after verifying the local API
 - Writes happen through Zotero internal JS, not the local API
 - The safest default is to prefer existing parent items, existing collections, and reversible edits
 
@@ -47,7 +48,8 @@ If the user reports PDF open failures:
 
 ## Key Rules
 
-- Use `users/0` with the local API.
+- Discover the local API base URL before assuming a port.
+- Prefer `users/0` for local API reads after discovery succeeds.
 - Treat `top-level` and `child` items as different maintenance problems.
 - Keep each paper in exactly one collection unless the user asks otherwise.
 - Minimize new collections; prefer existing semantic buckets.
