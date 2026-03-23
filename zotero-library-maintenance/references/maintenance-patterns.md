@@ -1,9 +1,6 @@
-# Session-Derived Patterns
+# Maintenance Patterns
 
-Source session:
-- `/Users/binbinsh/.codex/sessions/2026/03/24/rollout-2026-03-24T02-45-31-019d1c04-36fd-7e30-854e-0272d10d7bb7.jsonl`
-
-This skill was distilled from a long Zotero maintenance session that covered:
+This reference captures practical patterns for Zotero library maintenance:
 - collection assignment for unfiled top-level papers
 - top-level attachment re-parenting
 - conservative year completion

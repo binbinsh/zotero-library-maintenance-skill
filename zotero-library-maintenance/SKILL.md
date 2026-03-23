@@ -61,7 +61,7 @@ If the user reports PDF open failures:
 ## Reading Order
 
 - For library triage and repair workflow: read [playbook.md](./references/playbook.md)
-- For session-derived heuristics and failure patterns: read [session-derived-patterns.md](./references/session-derived-patterns.md)
+- For maintenance heuristics and failure patterns: read [maintenance-patterns.md](./references/maintenance-patterns.md)
 - For deterministic local audits: use [local_api_audit.py](./scripts/local_api_audit.py)
 - For re-downloading missing `imported_url` PDFs from stored attachment URLs: use [redownload_missing_imported_url_pdfs.py](./scripts/redownload_missing_imported_url_pdfs.py)
 
