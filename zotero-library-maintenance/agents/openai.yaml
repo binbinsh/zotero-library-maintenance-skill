@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zotero Library Maintenance"
+  short_description: "Audit, organize, and repair local Zotero libraries"
+  default_prompt: "Use $zotero-library-maintenance to audit and repair my local Zotero library via the localhost API and Zotero Run JavaScript."
