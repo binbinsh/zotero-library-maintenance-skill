@@ -7,6 +7,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from zotero_discovery import discover_local_api
+
 
 def build_base(base_url, user_id):
     return f"{base_url.rstrip('/')}/api/users/{user_id}/items"
@@ -37,15 +39,24 @@ def enclosure_path(obj):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base-url", default=os.environ.get("ZOTERO_BASE_URL", "http://localhost:23119"))
-    parser.add_argument("--user-id", default=os.environ.get("ZOTERO_USER_ID", "0"))
+    parser.add_argument("--base-url")
+    parser.add_argument("--user-id")
+    parser.add_argument("--timeout", type=float, default=2.0)
     args = parser.parse_args()
 
-    items = fetch_all(build_base(args.base_url, args.user_id))
+    if args.base_url:
+        base_url = args.base_url
+        user_id = args.user_id or os.environ.get("ZOTERO_USER_ID", "0")
+    else:
+        discovered = discover_local_api(timeout=args.timeout)
+        base_url = discovered["base_url"]
+        user_id = args.user_id or discovered["user_alias"]
+
+    items = fetch_all(build_base(base_url, user_id))
     ssl_ctx = ssl.create_default_context()
     headers = {"User-Agent": "Mozilla/5.0"}
 
-    log = {"totalPlanned": 0, "downloaded": [], "errors": []}
+    log = {"base_url": base_url, "user_id": user_id, "totalPlanned": 0, "downloaded": [], "errors": []}
 
     candidates = []
     for obj in items:

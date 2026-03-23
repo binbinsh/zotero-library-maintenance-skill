@@ -11,7 +11,7 @@ Use this skill for high-leverage maintenance on a local Zotero library when the 
 
 This skill assumes:
 - Reads come from the local API after discovery of the local base URL
-- Reads should prefer `users/0` after verifying the local API
+- Reads should prefer the local-user alias after verifying the local API
 - Writes happen through Zotero internal JS, not the local API
 - The safest default is to prefer existing parent items, existing collections, and reversible edits
 
@@ -49,7 +49,7 @@ If the user reports PDF open failures:
 ## Key Rules
 
 - Discover the local API base URL before assuming a port.
-- Prefer `users/0` for local API reads after discovery succeeds.
+- Prefer the local-user alias for local API reads after discovery succeeds.
 - Treat `top-level` and `child` items as different maintenance problems.
 - Keep each paper in exactly one collection unless the user asks otherwise.
 - Minimize new collections; prefer existing semantic buckets.

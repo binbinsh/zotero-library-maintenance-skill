@@ -16,15 +16,15 @@ Use one of these discovery paths:
 
 1. Preferred, from inside Zotero `Run JavaScript`:
    - `Zotero.Prefs.get('connector.url')`
-   - this typically returns something like `http://127.0.0.1:23119/`
+   - this typically returns a loopback URL with the active port
 2. Outside Zotero, probe candidate bases and accept the first one whose `/api/` root responds with headers like:
    - `X-Zotero-Version`
    - `Zotero-API-Version`
-3. Treat `localhost:23119` or `127.0.0.1:23119` as defaults, not guarantees.
+3. Treat the common default ports as fallback candidates, not guarantees.
 
 ## User Library Discovery
 
-For the local API, prefer `users/0`.
+For the local API, prefer the built-in local-user alias after discovery.
 
 Why:
 - Zotero's local API explicitly accepts `userID 0` as the alias for the logged-in local user
@@ -34,7 +34,7 @@ If you need the real numeric user id:
 - inspect the returned item payload under `library.id`
 - or inspect the `alternate` links in API responses
 
-Use the real numeric id only when required by the task. Otherwise `users/0` is the least fragile choice.
+Use the real numeric id only when required by the task. Otherwise the local-user alias is the least fragile choice.
 
 ## Phase 1: Audit
 
