@@ -13,6 +13,12 @@ Main repair classes:
 - conservative year filling
 - broken PDF diagnostics and recovery
 
+What this skill does not do:
+- It does not guarantee authoritative bibliographic metadata for every attachment or scanned book.
+- It does not bypass publisher paywalls, private file hosting restrictions, or expired signed URLs.
+- It does not mutate Zotero through the local API; writes must go through Zotero internal JS.
+- It does not automatically delete ambiguous missing attachments that may carry notes or annotations.
+
 Detailed references:
 - [`playbook.md`](./zotero-library-maintenance/references/playbook.md)
 - [`maintenance-patterns.md`](./zotero-library-maintenance/references/maintenance-patterns.md)
